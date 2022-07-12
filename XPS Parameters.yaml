@@ -1,0 +1,226 @@
+# S20220706211301:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2}
+#   Ef: {Channel: 3}
+#   xOffset : 729.72
+#   Temperature: 600
+
+# S20220706223035:
+#   Pt4f: {Channel: 1}
+#   xOffset : 729.75
+#   Temperature: 600
+
+# S20220706225410:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 729.8
+#   Temperature: 500
+
+# S20220707063835:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.05
+#   Temperature: 500
+
+# S20220707101011:
+#     Overview: {Channel: 1}
+
+S20220707103213:
+  Overview: {Channel: 1}
+  Temperature: 600
+
+# S20220707103250:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2, yFactor: 10}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.35
+#   Temperature: 600
+
+S20220707133308:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.4
+  Temperature: 600
+
+S20220707153948:
+  Overview: {Channel: 1}
+  Temperature: 500
+
+S20220707155237:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.4
+  Temperature: 500
+
+S20220707174841:
+  Overview: {Channel: 1}
+  Temperature: 400
+
+S20220707180048:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.4
+  Temperature: 400
+
+S20220707202628:
+  Overview: {Channel: 1}
+  Temperature: 320
+
+S20220707204334:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.3
+  Temperature: 320
+
+S20220708103514:
+  Overview: {Channel: 1}
+  Temperature: 592
+
+# S20220708105020:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.3
+#   Temperature: 592
+
+# S20220708195042:
+#   Overview: {Channel: 1}
+#   Temperature: 592
+
+# S20220708201452:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2, yFactor: 10}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.5
+#   Temperature: 592
+
+# S20220708213708:
+#   Overview: {Channel: 1}
+#   Temperature: 514
+
+# S20220708214909:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.5
+#   Temperature: 514
+
+# S20220709120637:
+#   Overview: {Channel: 1}
+#   Temperature: 514
+
+# S20220709121810:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2, yFactor: 10}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.65
+#   Temperature: 514
+
+# S20220709150643:
+#   Overview: {Channel: 1}
+#   Temperature: 625.7
+
+# S20220709152538:
+#   Overview: {Channel: 1}
+#   Temperature: 546.0
+
+# S20220709154249:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2, yFactor: 10}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.6
+#   Temperature: 546
+
+# # S20220709175704:
+# #   Overview: {Channel: 1}
+# #   Temperature: 546.0
+
+# S20220709185010:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2, yFactor: 10}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.5
+#   Temperature: 462.7
+
+# S20220709221306:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.4
+#   Temperature: 450.4
+
+S20220710100918:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.2
+  Temperature: 499.3
+
+# S20220710113013:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2, yFactor: 10}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.2
+#   Temperature: 499.3
+
+# S20220710114508:
+#   Overview: {Channel: 1}
+#   Temperature: 499.3
+
+S20220710171536:
+  Overview: {Channel: 1}
+  Temperature: 458.4
+
+S20220710180831:
+  Overview: {Channel: 1}
+  Temperature: 458.4
+
+S20220710185108:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.2
+  Temperature: 458.4
+
+S20220710202418:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.2
+  Temperature: 498.2
+
+S20220710220201:
+  Overview: {Channel: 1}
+  Temperature: 553.5
+
+S202207101430:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  xOffset : 730.2
+  Temperature: 553.5
