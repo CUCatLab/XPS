@@ -217,10 +217,10 @@ S20220710220201:
   Overview: {Channel: 1}
   Temperature: 553.5
 
-S202207101430:
-  O1s: {Channel: 1}
-  C1s: {Channel: 2}
-  Pt4f: {Channel: 3}
-  Ef: {Channel: 4}
-  xOffset : 730.2
-  Temperature: 553.5
+# S202207101430:
+#   O1s: {Channel: 1}
+#   C1s: {Channel: 2}
+#   Pt4f: {Channel: 3}
+#   Ef: {Channel: 4}
+#   xOffset : 730.2
+#   Temperature: 553.5
