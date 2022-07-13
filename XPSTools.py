@@ -77,7 +77,8 @@ class XPS () :
         for filename in filenames :
             if filename in par and region in par[filename] :
                 newdata = pd.read_csv(Path(self.folder+'/'+filename+'_'+str(par[filename][region]['Channel'])+'.csv'))
-                data[filename] = {}
+                if not filename in data :
+                    data[filename] = {}
                 data[filename][region] = {}
                 for idx, col in enumerate(newdata) :
                     if idx == 0 :
