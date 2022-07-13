@@ -99,8 +99,8 @@ class XPS () :
                 if 'Temperature' in par[filename] :
                     name += ', '+str(par[filename]['Temperature'])+' K'
                 fig.add_trace(go.Scatter(x=x, y=y, name=name))
-                data[filename][region]['x'] = x
-                data[filename][region]['y'] = y
+                data[filename][region]['x'] = x.values
+                data[filename][region]['y'] = y.values
 
         self.data = data
         fig.show()
