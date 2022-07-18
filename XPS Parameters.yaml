@@ -29,9 +29,9 @@
 # S20220707101011:
 #     Overview: {Channel: 1}
 
-S20220707103213:
-  Overview: {Channel: 1}
-  Temperature: 600
+# S20220707103213:
+#   Overview: {Channel: 1}
+#   Temperature: 600
 
 # S20220707103250:
 #   O1s: {Channel: 1}
@@ -42,8 +42,24 @@ S20220707103213:
 #   Temperature: 600
 
 S20220707133308:
-  O1s: {Channel: 1}
-  C1s: {Channel: 2}
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.02, min: 0}
+        center: {value: 532, vary: True}
+        sigma: {value: 0.4, vary: True}
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.02, min: 0}
+        center: {value: 284, vary: True}
+        sigma: {value: 0.4, vary: True}
   Pt4f: {Channel: 3}
   Ef: {Channel: 4}
   xOffset : 730.4
