@@ -92,9 +92,9 @@ class DataTools () :
                             data[region]['y'+str(idx)] = newdata[col].values
                     data[region]['y'] /= idx
                     if normalize :
-                        baseline = np.mean(data[region]['y'][-10:-1])
                         for col in data[region] :
                             if 'y' in col :
+                                baseline = np.mean(data[region][col][-10:-1])
                                 data[region][col] -= baseline
                         normalization = max(data[region]['y'])
                         for col in data[region] :
@@ -265,9 +265,8 @@ class XPS :
     
     def ShowFits(self,xLabel='',yLabel='') :
         
-        Data = self.Data
+        Data = self.data
         Fits = self.Fits
-        Fitpar = self.Fitpar
         
         FitsParameters = self.FitsParameters
         FitsComponents = self.FitsComponents
@@ -275,15 +274,13 @@ class XPS :
         for idx,Column in enumerate(Data) :
             
             plt.figure(figsize = [6,4])
-            plt.plot(Data.index, Data[Column],'k.', label='Data')
-            plt.plot(Fits.index, Fits[Column], 'r-', label='Fit')
+            plt.plot(Data[region]['x'], Data[region][col],'k.', label='Data')
+            plt.plot(Fits.index, Fits[col], 'r-', label='Fit')
             for Component in FitsComponents[idx] :
                 if not isinstance(FitsComponents[idx][Component],float) :
                     plt.fill(Fits.index, FitsComponents[idx][Component], '--', label=Component, alpha=0.5)
             plt.legend(frameon=False, loc='upper center', bbox_to_anchor=(1.2, 1), ncol=1)
             plt.xlabel(xLabel), plt.ylabel(yLabel)
-            if 'xRange' in Fitpar :
-                plt.xlim(Fitpar['xRange'][0],Fitpar['xRange'][1])
             plt.title(str(Column))
             plt.show()
             
@@ -306,14 +303,14 @@ class XPS :
     
     def FitData(self) :
         
-        dt = self.dt
+        with open('XPS Parameters.yaml', 'r') as stream:
+            self.par = yaml.safe_load(stream)
         
         Data = self.data
         par = self.par
         DataName = str(self.Files.value)
         
         print('Data: '+DataName)
-        # print('Description: '+par['Description'])
         
         ##### Fit Data #####
 
@@ -328,38 +325,7 @@ class XPS :
         
                     print('\n'+100*'_')
         
-        # ##### Peak Assignments #####
-        
-        # PeakList = list()
-        # AssignmentList = list()
-        # for Peak in par['Fit']['Models'] :
-        #     PeakList.append(Peak)
-        #     if 'assignment' in par['Fit']['Models'][Peak] :
-        #         AssignmentList.append(par['Fit']['Models'][Peak]['assignment'])
-        #     else :
-        #         AssignmentList.append(Peak)
-        # FitsAssignments = df(AssignmentList,index=PeakList,columns=['Assignment'])
-        
-        ##### Show Fits & Data #####
-        
-        # if 'ShowFits' in par['Fit'] :
-        #     ShowFits = par['Fit']['ShowFits']
-        # else :
-        #     ShowFits = True
-
-        # if ShowFits :
-            
-        #     plt.figure(figsize = [6,4])
-        #     plt.plot(Background.index, Background['Data'],'k.', label='Data')
-        #     if 'Fit' in Background :
-        #         plt.plot(Background.index, Background['Fit'], 'r-', label='Fit')
-        #     plt.xlabel('WaveNumber (cm$^{-1}$)'), plt.ylabel('Intensity (au)')
-        #     plt.title('Background')
-        #     plt.show()
-
-        #     print(100*'_')
-        
-                    for col in Data[region] :
+                    for idx,col in enumerate(Data[region]) :
 
                         if 'y' in col :
 
@@ -368,7 +334,9 @@ class XPS :
                             plt.plot(Fits.index, Fits[col], 'r-', label='Fit')
                             plt.xlabel('Energy (eV)'), plt.ylabel('Intensity (au)')
                             plt.title(region+', '+str(col))
-                            
+                            for Component in self.FitsComponents[idx-1] :
+                                if not isinstance(self.FitsComponents[idx-1][Component],float) :
+                                    plt.fill(Fits.index, self.FitsComponents[idx-1][Component], '--', label=Component, alpha=0.5)
                             plt.legend(frameon=False, loc='upper center', bbox_to_anchor=(1.2, 1), ncol=1)
                             plt.show()
                             
@@ -379,10 +347,10 @@ class XPS :
                                     Peaks.append(Name)
                             string = ''
                             for Peak in Peaks :
-                                # if 'assignment' in par[self.Files.value][region]['Models'][Peak] :
-                                #     string += par[self.Files.value][region]['Models'][Peak]['assignment'] + ' | '
-                                # else :
-                                string += Peak + ' | '
+                                if 'assignment' in par[self.Files.value][region]['Models'][Peak] :
+                                    string += par[self.Files.value][region]['Models'][Peak]['assignment'] + ' | '
+                                else :
+                                    string += Peak + ' | '
                                 for Parameter in FitsParameters.index :
                                     if Peak == Parameter.split('_')[0] : 
                                         string += Parameter.split('_')[1] + ': ' + str(round(FitsParameters[col][Parameter],2))
