@@ -84,11 +84,11 @@ class DataTools () :
                             if 'xOffset' in par[filename] :
                                 data[region]['x'] -= par[filename]['xOffset']
                                 data[region]['x'] = -data[region]['x']
-                        elif idx == 1 :
-                            data[region]['y'] = newdata[col].values
                         else :
-                            data[region]['y'] += newdata[col].values
-                        if idx != 0 :
+                            if idx == 1 :
+                                data[region]['y'] = newdata[col].values.copy()
+                            else :
+                                data[region]['y'] += newdata[col].values.copy()
                             data[region]['y'+str(idx)] = newdata[col].values
                     data[region]['y'] /= idx
                     if normalize :
