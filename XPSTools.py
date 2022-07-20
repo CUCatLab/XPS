@@ -47,15 +47,12 @@ class DataTools () :
 
     def __init__(self,folder='') :
 
-        with open('XPS Parameters.yaml', 'r') as stream:
-            par = yaml.safe_load(stream)
-
         self.folder = folder
-        self.par = par
     
     def FileList (self) :
 
-        par = self.par
+        with open('XPS Parameters.yaml', 'r') as stream:
+            par = yaml.safe_load(stream)
 
         filenames = list()
         for filename in par :
@@ -65,7 +62,8 @@ class DataTools () :
     
     def LoadData(self,filename,normalize=False) :
 
-        par = self.par
+        with open('XPS Parameters.yaml', 'r') as stream:
+            par = yaml.safe_load(stream)
 
         regions = ['C1s','O1s','Pt4f','Ef','Overview']
         
@@ -109,7 +107,8 @@ class DataTools () :
 
     def PlotRegion(self,region,normalize=True) :
 
-        par = self.par
+        with open('XPS Parameters.yaml', 'r') as stream:
+            par = yaml.safe_load(stream)
 
         fig = go.Figure()
         fig.update_layout(xaxis_title="Energy (eV)",yaxis_title="Intensity (au)",title=region,font=dict(size=18),
