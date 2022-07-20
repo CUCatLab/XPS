@@ -155,7 +155,6 @@ class XPS :
 
         self.dt = DataTools(folder)
         self.folder = folder
-        self.par = self.dt.par
     
     def SetModel(self, Data, par) :
         
