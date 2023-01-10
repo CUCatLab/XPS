@@ -358,6 +358,7 @@ class XPS :
                             print(100*'_')
                     FitsParameters = FitsParameters.T
                     FitsParameters = FitsParameters[np.concatenate((FitsParameters.columns.values[1:],FitsParameters.columns.values[0:1]))]
+                    exec('self.'+region+'FitsParameters = self.FitsParameters')
         
         # Plot Trends
         
