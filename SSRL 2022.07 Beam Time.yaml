@@ -1,0 +1,893 @@
+S20220706211301:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, max: 533, min: 530, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.5, min: 0}
+        center: {value: 530, max: 531, min: 529.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.02, min: 0.5}
+        center: {value: 284, max: 285, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.02, min: 0}
+        center: {value: 289, min: 287, vary: True}
+        sigma: {value: 0.4, vary: True}
+        
+  Ef: {Channel: 3}
+  Temperature: 600
+  xOffset: 729.8
+
+S20220706225410:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 532, max: 535, vary: True}
+        sigma: {value: 0.9, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.5, min: 0}
+        center: {value: 530, max: 531, min: 529.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: 0.2, min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: 0.4, vary: True}
+            p2amplitude: {value: 0.2, min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: 0.4, vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 500
+  xOffset: 729.8
+
+S20220707063835:
+  O1s:
+    Channel: 1
+    Models:
+      O1:
+        assignment: 'Carbon Monoxide'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532.65, min: 532.6, max: 532.7, vary: True}
+        sigma: {value: 0.9, vary: True}
+      Adsorbed1:
+        assignment: 'Oxygen Adsorbed on Platinum Surface'
+        model: 'Gaussian'
+        amplitude: {value: 0.5, min: 0}
+        center: {value: 530, max: 531, min: 529.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      C:
+        assignment: 'Atomic Carbon and/or CHx'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 284, max: 284.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+      CO:
+        assignment: 'Carbon Monoxide'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 286, min: 285.5, max: 287, vary: True}
+        sigma: {value: 0.4, max: 1, vary: True}
+
+  Pt4f:
+    Channel: 3
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.02, min: 0.1, vary: True}
+        center: {value: 71, min: 70, max: 72, vary: True}
+        sigma: {value: 0.3, min: 0.25, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.02, min: 0, vary: True}
+#         amplitude: {set: (expr='Adsorbed_amplitude*0.094786964')}
+        center: {value: 75, min: 74, max: 76, vary: True}
+        sigma: {value: 0.25, min: 0.15, vary: True}
+#       Adsorbed3:
+#         assignment: 'Shirley Background'
+#         model: 'Shirley'
+#         const: {value: 0.1, vary: True}
+#         k: {value: 0.1, vary: True}
+
+  Ef:
+      Channel: 4
+  Temperature: 500
+  xOffset: 730.1
+
+S20220707093501:
+  Overview: {Channel: 1}
+
+S20220707101011:
+  Overview: {Channel: 1}
+
+S20220707103213:
+  Overview: {Channel: 1}
+  Temperature: 600
+
+#BadCData
+S20220707103250:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.5, min: 0}
+        center: {value: 530, max: 531, min: 529.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: 0.2, min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 600
+  xOffset: 730.4
+
+S20220707133308:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 533, min: 532, max: 534, vary: True}
+        sigma: {value: 0.9, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.5, min: 0}
+        center: {value: 530, max: 531, min: 529.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 286, min: 285, max: 288, vary: True}
+        sigma: {value: 0.4, max: 1, vary: True}
+        
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  xOffset : 730.4
+  Temperature: 600
+
+S20220707153948:
+  Overview: {Channel: 1}
+  Temperature: 500
+
+S20220707155237:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  xOffset : 730.4
+  Temperature: 500
+
+S20220707174841:
+  Overview: {Channel: 1}
+  Temperature: 402.6
+
+S20220707180048:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.5, min: 0}
+        center: {value: 530, max: 531, min: 529.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Carbon?'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 287, min: 285, max: 289, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  xOffset : 730.4
+  Temperature: 402.6
+
+S20220707202628:
+  Overview: {Channel: 1}
+  Temperature: 318.9
+
+S20220707204334:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Hydroxide (O-H)'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: '(Pt--O)'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0.02}
+        center: {value: 531, min: 525, max: 532, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Carbon'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Carbon Monoxide'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 286, min: 285.9, max: 287, vary: True}
+        sigma: {value: 0.4, max: 0.75, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: 0.2, min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: 0.4, vary: True}
+            p2amplitude: {value: 0.2, min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: 0.4, vary: True}
+            const: {value: 1, min: 0.105, vary: True}
+            k: {value: 1, vary: True}
+  Ef:
+      Channel: 4
+  xOffset : 730.3
+  Temperature: 318.9
+
+S20220708103514:
+  Overview: {Channel: 1}
+  Temperature: 592.9
+
+#Something funky going on with the fermi data
+#S20220708105020:
+#  O1s: {Channel: 1}
+#  C1s: {Channel: 2}
+#  Pt4f: {Channel: 3}
+#  Ef: {Channel: 4}
+#  Temperature: 592.9
+#  xOffset: 725
+
+S20220708195042:
+  Overview: {Channel: 1}
+  Temperature: 592.9
+  
+#S20220708201410:
+ # Overview: {Channel: 1}
+
+#BadCData
+S20220708201452:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0, max: 1.5}
+        center: {value: 529.6, min: 529.9, max: 532, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 592.9
+  xOffset: 730.5
+  
+S20220708213708:
+  Overview: {Channel: 1}
+  Temperature: 514.1
+
+S20220708214909:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: , min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: , vary: True}
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: , min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: , vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 514.1
+  xOffset: 730.5
+  
+S20220709120637:
+  Overview: {Channel: 1}
+  Temperature: 514.1
+
+#BadCData
+S20220709121810:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 514.1
+  xOffset: 730.7
+  
+  
+S20220709150643:
+  Overview: {Channel: 1}
+  Temperature: 546.0
+  
+#S20220709152332:
+ # Overview: {Channel: 1}
+  
+S20220709152538:
+  Overview: {Channel: 1}
+  Temperature: 625.7
+  
+#BadCData
+S20220709154249:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 546.0
+  xOffset: 730.6
+ 
+S20220709175704:
+  Overview: {Channel: 1}
+  Temperature: 546.0
+  
+#BadCData
+S20220709180811:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 546.0
+  xOffset: 730.6
+
+S20220709183840:
+  Overview: {Channel: 1}
+  Temperature: 462.7
+  
+#REALLY bad C data
+S20220709185010:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+#   C1s:
+#     Channel: 2
+#     Models:
+#       Adsorbed:
+#         assignment: 'Adsorbed'
+#         model: 'Gaussian'
+#         amplitude: {value: 2, min: 0}
+#         center: {value: 284, min: 283, max: 286, vary: True}
+#         sigma: {value: 0.4, vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 462.7
+  xOffset: 730.6
+  
+#SomewhatBadCData
+S20220709204454:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 439.8
+  xOffset: 730.5
+
+S20220709221306:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      C:
+        assignment: 'Atomic Carbon and/or CHx'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 284.2, max: 284.5, vary: True}
+        sigma: {value: 0.4, vary: True}
+      CO:
+        assignment: 'Carbon Monoxide'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 286, min: 285.5, max: 287, vary: True}
+        sigma: {value: 0.4, max: 1, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 402.6
+  xOffset: 730.5
+
+S20220710100918:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  xOffset : 730.2
+  Temperature: 499.3
+
+#look over fermi data
+#BadCData
+#Just Bad Data in General Really
+S20220710113013:
+  O1s: {Channel: 1}
+  C1s: {Channel: 2}
+  Pt4f: {Channel: 3}
+  Ef: {Channel: 4}
+  Temperature: 499.3
+  xOffset: 730.2
+  
+S20220710114508:
+  Overview: {Channel: 1}
+  Temperature: 499.3
+  
+S20220710145157:
+  Overview: {Channel: 1}
+  Temperature: 499.3
+
+S20220710171536:
+  Overview: {Channel: 1}
+  Temperature: 458.4
+
+S20220710180831:
+  Overview: {Channel: 1}
+  Temperature: 458.4
+  
+#S20220710182006:
+#  O1s: {Channel: 1}
+#  C1s: {Channel: 2}
+#  Pt4f: {Channel: 3}
+#  Ef: {Channel: 4}
+#  Temperature: 458.4
+#  xOffset: 735.2
+
+S20220710185108:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  xOffset : 735.2
+  Temperature: 458.4
+
+S20220710202418:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 284, min: 283, max: 286, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  xOffset : 735.2
+  Temperature: 498.2
+
+S20220710220201:
+  Overview: {Channel: 1}
+  Temperature: 553.5
+  
+S20220710221430:
+  O1s:
+    Channel: 1
+    Models:
+      Adsorbed:
+        assignment: 'Adsorbed'
+        model: 'Gaussian'
+        amplitude: {value: 2, min: 0}
+        center: {value: 532, min: 525, max: 535, vary: True}
+        sigma: {value: 0.4, vary: True}
+
+  C1s:
+    Channel: 2
+    Models:
+      C:
+        assignment: 'Atomic Carbon OR CH3'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 284, min: 284.2, max: 284.3, vary: True}
+        sigma: {value: 0.4, vary: True}
+      Adsorbed2:
+        assignment: 'Adsorbed2'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 286, min: 286, max: 287, vary: True}
+        sigma: {value: 0.4, max: 1, vary: True}
+      Adsorbed3:
+        assignment: 'Adsorbed3'
+        model: 'Gaussian'
+        amplitude: {value: 0.2, min: 0}
+        center: {value: 286, min: 287, max: 288, vary: True}
+        sigma: {value: 0.4, max: 1, vary: True}
+
+  Pt4f:
+      Channel: 3
+      Models:
+        Adsorbed:
+            assignment: 'Adsorbed'
+            model: 'PlatinumModel'
+            p1amplitude: {value: , min: 0}
+            p1center: {value: 71.2, min: 70.9, max: 71.5, vary: True}
+            p1sigma: {value: , vary: True}
+            p2amplitude: {value: , min: 0.025}
+            p2center: {value: 74.5, min: 74.3, max: 74.7, vary: True}
+            p2sigma: {value: , vary: True}
+  Ef:
+      Channel: 4
+  Temperature: 554.8
+  xOffset: 735.2

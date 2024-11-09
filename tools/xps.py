@@ -42,134 +42,71 @@ pio.templates[pio.templates.default].layout.update(dict(
         )
 ))
 
+parametersFile = 'tools/parameters.yaml'
 
 class dataTools () :
 
-    def __init__(self,parFile,folder='') :
-        
-        if folder == '' :
-            with open(parFile+'.yaml', 'r') as stream:
-                self.par = yaml.safe_load(stream)
-            folder = self.par['dataFolder']
-        
-        self.parFile = parFile
-        self.folder = folder
-    
-    def fileList (self) :
-
-        with open(self.parFile+'.yaml', 'r') as stream:
-            par = yaml.safe_load(stream)
-
-        if 'dataFolder' in par :
-            par.pop('dataFolder')
-
-        filenames = list()
-        for filename in par :
-            filenames.append(filename)
-        
-        return filenames
-    
-    def LoadData(self,filename,normalize=False) :
-
-        with open(self.parFile+'.yaml', 'r') as stream:
-            par = yaml.safe_load(stream)
-
-        regions = ['C1s','O1s','Pt4f','Ef','Overview']
-        
-        data = {}
-        if filename in par :
-            for region in par[filename] :
-                if region in regions :
-                    data[region] = {}
-                    channel = par[filename][region]['Channel']
-                    newdata = pd.read_csv(Path(self.folder+'/'+filename+'_'+str(channel)+'.csv'))
-                    if not filename in data :
-                        data[filename] = {}
-                    for idx, col in enumerate(newdata) :
-                        if idx == 0 :
-                            data[region]['x'] = newdata[col].values
-                            if 'xOffset' in par[filename] :
-                                data[region]['x'] -= par[filename]['xOffset']
-                                data[region]['x'] = -data[region]['x']
-                        else :
-                            if idx == 1 :
-                                data[region]['y'] = newdata[col].values.copy()
-                            else :
-                                data[region]['y'] += newdata[col].values.copy()
-                            data[region]['y'+str(idx)] = newdata[col].values
-                    data[region]['y'] /= idx
-                    if normalize :
-                        for col in data[region] :
-                            if 'y' in col :
-                                normalization = np.mean(data[region][col][-11:-1])
-                                data[region][col] = data[region][col] / normalization - 1
-                    if 'yFactor' in par[filename][region] :
-                        for y in data[region] :
-                            if 'y' in y :
-                                data[region][y] /= par[filename][region]['yFactor']
-
-        return data
-
-    def PlotRegion(self,region,normalize=True) :
-
-        with open(self.parFile+'.yaml', 'r') as stream:
-            par = yaml.safe_load(stream)
-
-        fig = go.Figure()
-        fig.update_layout(xaxis_title="Energy (eV)",yaxis_title="Intensity (au)",title=region,font=dict(size=18),
-            autosize=False,width=1000,height=600)
-        filenames = list()
-        for filename in par :
-            filenames.append(filename)
-
-        data = {}
-        for filename in filenames :
-            data[filename] = {}
-            newdata = self.LoadData(filename,normalize)
-            if region in newdata :
-                data[filename][region] = {}
-                data[filename][region]['x'] = newdata[region]['x']
-                data[filename][region]['y'] = newdata[region]['y']
-                name = filename
-                if 'Temperature' in par[filename] :
-                    name += ', '+str(par[filename]['Temperature'])+' K'
-                fig.add_trace(go.Scatter(x=data[filename][region]['x'], y=data[filename][region]['y'], name=name))
-
-        self.data = data
-        fig.show()
-
-    def PlotFile(self,filename,region,normalize=True) :
-
-        data = self.LoadData(filename,normalize)
-
-        fig = go.Figure()
-        fig.update_layout(xaxis_title="Energy (eV)",yaxis_title="Intensity (au)",title=filename,font=dict(size=18),
-            autosize=False,width=1000,height=600)
-        for col in data[region] :
-            if 'y' in col :
-                fig.add_trace(go.Scatter(x=data[region]['x'], y=data[region][col], name=col))
-
-        self.data = data
-        fig.show()
-
-
-class fitTools :
-    
     def __init__(self) :
 
-        pass
-
-    def LoadPar(self,parFile,folder='') :
-        if folder == '' :
-            with open(parFile+'.yaml', 'r') as stream:
-                self.par = yaml.safe_load(stream)
-            folder = self.par['dataFolder']
-
-        self.dt = dataTools(parFile)
-        self.folder = folder
-        self.parFile = parFile
+        self.regions = ['C1s','O1s','Pt4f','Ef','Overview']
     
-    def SetModel(self, Data, par) :
+    def loadData(self, par, normalize=True) :
+        
+        data = {}
+        data['run'] = par['run']
+        for region in par :
+            if region in self.regions :
+                data[region] = {}
+                channel = par[region]['Channel']
+                newdata = pd.read_csv(Path(par['folder'] +'/'+par['run']+'_'+str(channel)+'.csv'))
+                for idx, col in enumerate(newdata) :
+                    if idx == 0 :
+                        data[region]['x'] = newdata[col].values
+                        if 'xOffset' in par :
+                            data[region]['x'] -= par['xOffset']
+                            data[region]['x'] = -data[region]['x']
+                    else :
+                        if idx == 1 :
+                            data[region]['y'] = newdata[col].values.copy()
+                        else :
+                            data[region]['y'] += newdata[col].values.copy()
+                        data[region]['y'+str(idx)] = newdata[col].values
+                data[region]['y'] /= idx
+                if normalize :
+                    for col in data[region] :
+                        if 'y' in col :
+                            normalization = np.mean(data[region][col][-11:-1])
+                            data[region][col] = data[region][col] / normalization - 1
+                if 'yFactor' in par[region] :
+                    for y in data[region] :
+                        if 'y' in y :
+                            data[region][y] /= par[region]['yFactor']
+        return data
+    
+    def plotData(self,data) :
+
+        for region in data :
+            if region in self.regions :
+                fig = go.Figure()
+                fig.update_layout(xaxis_title="Energy (eV)",yaxis_title="Intensity (au)",title=region+', '+data['run'],font=dict(size=18),
+                    autosize=False,width=1000,height=600)
+                x = data[region]['x']
+                y = data[region]['y']
+                fig.add_trace(go.Scatter(x=x, y=y))
+                fig.show()
+
+
+class analysisTools :
+    
+    def __init__(self, data, par) :
+
+        self.data = data
+        self.par = par
+
+    def setModel(self, region) :
+
+        data = self.data[region]
+        par = self.par[region]['Models']
         
         ModelString = list()
         for Peak in par :
@@ -177,48 +114,52 @@ class fitTools :
         
         for Model in ModelString :
             try :
-                FitModel
+                fitModel
             except :
                 if Model[1] == 'Constant' :
-                    FitModel = ConstantModel(prefix=Model[0]+'_')
+                    fitModel = ConstantModel(prefix=Model[0]+'_')
                 if Model[1] == 'Linear' :
-                    FitModel = LinearModel(prefix=Model[0]+'_')
+                    fitModel = LinearModel(prefix=Model[0]+'_')
                 if Model[1] == 'Gaussian' :
-                    FitModel = GaussianModel(prefix=Model[0]+'_')
+                    fitModel = GaussianModel(prefix=Model[0]+'_')
                 if Model[1] == 'SkewedGaussian' :
-                    FitModel = SkewedGaussianModel(prefix=Model[0]+'_')
+                    fitModel = SkewedGaussianModel(prefix=Model[0]+'_')
                 if Model[1] == 'Voigt' :
-                    FitModel = VoigtModel(prefix=Model[0]+'_')
+                    fitModel = VoigtModel(prefix=Model[0]+'_')
                 if Model[1] == 'Shirley' :
-                    FitModel = ShirleyBG(prefix=Model[0]+'_')
+                    fitModel = ShirleyBG(prefix=Model[0]+'_')
             else :
                 if Model[1] == 'Constant' :
-                    FitModel = FitModel + ConstantModel(prefix=Model[0]+'_')
+                    fitModel = fitModel + ConstantModel(prefix=Model[0]+'_')
                 if Model[1] == 'Linear' :
-                    FitModel = FitModel + LinearModel(prefix=Model[0]+'_')
+                    fitModel = fitModel + LinearModel(prefix=Model[0]+'_')
                 if Model[1] == 'Gaussian' :
-                    FitModel = FitModel + GaussianModel(prefix=Model[0]+'_')
+                    fitModel = fitModel + GaussianModel(prefix=Model[0]+'_')
                 if Model[1] == 'SkewedGaussian' :
-                    FitModel = FitModel + SkewedGaussianModel(prefix=Model[0]+'_')
+                    fitModel = fitModel + SkewedGaussianModel(prefix=Model[0]+'_')
                 if Model[1] == 'Voigt' :
-                    FitModel = FitModel + VoigtModel(prefix=Model[0]+'_')
+                    fitModel = fitModel + VoigtModel(prefix=Model[0]+'_')
+                if Model[1] == 'Shirley' :
+                    fitModel = ShirleyBG(prefix=Model[0]+'_')
         
-        ModelParameters = FitModel.make_params()
+        modelParameters = fitModel.make_params()
         names = list()
-        for col in Data :
+        for col in data :
             if 'y' in col :
                 names.append(col)
-        FitsParameters = df(index=ModelParameters.keys(),columns=names)
+        fitParameters = df(index=modelParameters.keys(),columns=names)
         
-        self.FitModel = FitModel
-        self.ModelParameters = ModelParameters
-        self.FitsParameters = FitsParameters
+        self.fitModel[region] = fitModel
+        self.modelParameters[region] = modelParameters
+        self.fitParameters[region] = fitParameters
     
-    def SetParameters(self, par, Value=None) :
+    def setParameters(self, region) :
+
+        data = self.data[region]
+        par = self.par[region]['Models']
+        modelParameters = self.modelParameters[region]
         
-        ModelParameters = self.ModelParameters
-        
-        ParameterList = ['intercept','offset','amplitude','center','sigma']
+        ParameterList = ['intercept','offset','amplitude','center','sigma', 'const', 'k']
         Parameters = {'Standard': par}
 
         for Dictionary in Parameters :
@@ -227,169 +168,269 @@ class fitTools :
                     if Parameter in ParameterList :
                         for Key in Parameters[Dictionary][Peak][Parameter] :
                             if Key != 'set' :
-                                exec('ModelParameters["'+Peak+'_'+Parameter+'"].'+Key+'='+str(Parameters[Dictionary][Peak][Parameter][Key]))
+                                exec('modelParameters["'+Peak+'_'+Parameter+'"].'+Key+'='+str(Parameters[Dictionary][Peak][Parameter][Key]))
                             else :
-                                exec('ModelParameters["'+Peak+'_'+Parameter+'"].'+Key+str(Parameters[Dictionary][Peak][Parameter][Key]))
-                                    
-        self.ModelParameters = ModelParameters
-        self.FitsParameters = df(index=ModelParameters.keys(),columns=self.names)
+                                exec('modelParameters["'+Peak+'_'+Parameter+'"].'+Key+str(Parameters[Dictionary][Peak][Parameter][Key]))
+        
+        names = list()
+        for col in data :
+            if 'y' in col :
+                names.append(col)
+        self.modelParameters[region] = modelParameters
+        self.fitParameters[region] = df(index=modelParameters.keys(),columns=names)
     
-    def Fit(self,Data,par,**kwargs) :
+    def fit(self, region, **kwargs) :
 
-        self.SetModel(Data,par)
-        ModelParameters = self.ModelParameters
-        FitsParameters = self.FitsParameters
+        data = self.data[region]
+        self.setModel(region)
+        modelParameters = self.modelParameters[region]
+        fitParameters = self.fitParameters[region]
+        fitModel = self.fitModel[region]
 
-        self.names = list()
-        for col in Data :
+        names = list()
+        for col in data :
             if 'y' in col :
-                self.names.append(col)
-        names = self.names
+                names.append(col)
         
-        FitModel = self.FitModel
+        fits = df(index=data['x'],columns=names)
+        fitResults = list()
+        fitComponents = list()
         
-        Fits = df(index=Data['x'],columns=names)
-        FitsResults = list()
-        FitsComponents = list()
-        
-        for idx,col in enumerate(Data) :
+        for idx,col in enumerate(data) :
 
             if 'y' in col :
-                self.SetParameters(par)
-                x = Data['x']
-                y = Data[col]
-                FitResults = FitModel.fit(y, ModelParameters, x=x, nan_policy='omit')
-                fit_comps = FitResults.eval_components(FitResults.params, x=x)
-                fit_y = FitResults.eval(x=x)
-                ParameterNames = [i for i in FitResults.params.keys()]
+                self.setParameters(region)
+                x = data['x']
+                y = data[col]
+                fit_results = fitModel.fit(y, modelParameters, x=x, nan_policy='omit')
+                fit_comps = fit_results.eval_components(fit_results.params, x=x)
+                fit_y = fit_results.eval(x=x)
+                ParameterNames = [i for i in fit_results.params.keys()]
                 for Parameter in (ParameterNames) :
-                    FitsParameters[col][Parameter] = FitResults.params[Parameter].value
-                Fits[names[idx-1]] = fit_y
-                FitsResults.append(FitResults)
-                FitsComponents.append(fit_comps)
+                    fitParameters.loc[Parameter, col] = fit_results.params[Parameter].value
+                fits[names[idx-1]] = fit_y
+                fitResults.append(fit_results)
+                fitComponents.append(fit_comps)
                 
-                sys.stdout.write(("\rFitting %i out of "+str(len(Data)-1)) % (idx))
+                sys.stdout.write(("\rFitting %i out of "+str(len(data)-1)) % (idx))
                 sys.stdout.flush()
-            
-        self.Fits = Fits
-        self.FitsParameters = FitsParameters
-        self.FitsResults = FitsResults
-        self.FitsComponents = FitsComponents
+        
+        self.fits[region] = fits
+        self.fitParameters[region] = fitParameters
+        self.fitResults[region] = fitResults
+        self.fitComponents[region] = fitComponents
     
-    def FitData(self) :
+    def fitData(self) :
         
-        with open(self.parFile+'.yaml', 'r') as stream:
-            self.par = yaml.safe_load(stream)
-        
-        Data = self.data
+        data = self.data
         par = self.par
-        DataName = str(self.Files.value)
+
+        self.fits = {}
+        self.fitParameters = {}
+        self.fitResults = {}
+        self.fitComponents = {}
+        self.fitModel = {}
+        self.modelParameters = {}
         
-        print('Data: '+DataName)
+        print('Data: '+data['run'])
         
         ##### Fit Data #####
 
         regions = ['C1s','O1s','Pt4f','Ef']
         
-        for region in par[self.Files.value] :
+        for region in par :
             if region in regions :
-                if 'Models' in par[self.Files.value][region] :
-                    self.Fit(Data[region],par[DataName][region]['Models'])
-                    Fits = self.Fits
-                    FitsParameters = self.FitsParameters
+                if 'Models' in par[region] :
+                    self.fit(region)
+                    fits = self.fits[region]
+                    fitParameters = self.fitParameters[region]
+                    fitComponents = self.fitComponents[region]
         
                     print('\n'+100*'_')
         
-                    for idx,col in enumerate(Data[region]) :
-
+                    for idx,col in enumerate(data[region]) :
                         if 'y' in col :
                             plt.figure(figsize = [12,4])
-                            plt.plot(Data[region]['x'], Data[region][col],'k.', label='Data')
-                            plt.plot(Fits.index, Fits[col], 'r-', label='Fit')
+                            plt.plot(data[region]['x'], data[region][col],'k.', label='Data')
+                            plt.plot(fits.index, fits[col], 'r-', label='Fit')
                             plt.xlabel('Energy (eV)'), plt.ylabel('Intensity (au)')
                             plt.title(region+', '+str(col))
-                            for Component in self.FitsComponents[idx-1] :
+                            for Component in fitComponents[idx-1] :
                                 Peak = Component[:-1]
-                                if not isinstance(self.FitsComponents[idx-1][Component],float) :
-                                    print(self.par[self.Files.value][region]['Models'][Peak])
-                                    if 'assignment' in self.par[self.Files.value][region]['Models'][Peak] :
-                                        label = self.par[self.Files.value][region]['Models'][Component]['assignment']
+                                if not isinstance(fitComponents[idx-1][Component],float) :
+                                    if 'assignment' in par[region]['Models'][Peak] :
+                                        label = par[region]['Models'][Peak]['assignment']
                                     else :
                                         label = Peak
-                                    plt.fill(Fits.index, self.FitsComponents[idx-1][Component], '--', label=label, alpha=0.5)
+                                    plt.fill(fits.index, fitComponents[idx-1][Component], '--', label=label, alpha=0.5)
                             plt.legend(frameon=False, loc='upper center', bbox_to_anchor=(1.2, 1), ncol=1)
                             plt.show()
                             
                             Peaks = list()
-                            for Parameter in FitsParameters.index :
+                            for Parameter in fitParameters.index :
                                 Name = Parameter.split('_')[0]
                                 if Name not in Peaks :
                                     Peaks.append(Name)
                             string = ''
                             for Peak in Peaks :
-                                if 'assignment' in par[self.Files.value][region]['Models'][Peak] :
-                                    string += par[self.Files.value][region]['Models'][Peak]['assignment'] + ' | '
+                                if 'assignment' in par[region]['Models'][Peak] :
+                                    string += par[region]['Models'][Peak]['assignment'] + ' | '
                                 else :
                                     string += Peak + ' | '
-                                for Parameter in FitsParameters.index :
+                                for Parameter in fitParameters.index :
                                     if Peak == Parameter.split('_')[0] : 
-                                        string += Parameter.split('_')[1] + ': ' + str(round(FitsParameters[col][Parameter],2))
+                                        string += Parameter.split('_')[1] + ': ' + str(round(fitParameters[col][Parameter],2))
                                         string += ', '
                                 string = string[:-2] + '\n'
                             print(string)
                             print(100*'_')
-                    FitsParameters = FitsParameters.T
-                    FitsParameters = FitsParameters[np.concatenate((FitsParameters.columns.values[1:],FitsParameters.columns.values[0:1]))]
-    
-    def UI(self) :
 
+
+class UI :
+    
+    def __init__(self) :
+
+        dt = dataTools()
+
+        self.cwd = Path(os.getcwd())
+
+        self.FoldersLabel = '-------Folders-------'
+        self.FilesLabel = '-------Files-------'
+        self.parFile = parametersFile
+
+        with open(parametersFile, 'r') as stream :
+            self.folders = yaml.safe_load(stream)['folders']
+        
         out = ipw.Output()
-    
-        def parList(filter='yaml') :
-        
-            parList = [f for f in os.listdir()]
-            for i in range(len(filter)):
-                parList = [k for k in parList if filter[i] in k]
-            for i in range(len(parList)):
-                parList[i] = parList[i].replace('.yaml','')
-            
-            return parList
+        anout = ipw.Output()
 
-        def selecting(value) :
+        dataFolder = ipw.Text(value=self.folders['data'],
+            layout=Layout(width='70%'),
+            style = {'width': '100px','description_width': '150px'},
+            description='Data Folder')
+
+        def changeDataFolder(value) :
             if value['new'] :
-                self.LoadPar(selectParameters.value)
-                self.Files.options = self.dt.fileList
+                with open(self.parFile, 'r') as f :
+                    data = yaml.safe_load(f)
+                data['folders']['data'] = dataFolder.value
+                self.folders['data'] = dataFolder.value
+                with open(self.parFile, 'w') as f:
+                    yaml.dump(data, f)
+                print('cool')
+        dataFolder.observe(changeDataFolder, names='value')
 
-        selectParameters = ipw.Dropdown(
-            options=parList(),
-            description='Select Parameters File',
+        def goToAddress(address):
+            address = Path(address)
+            if address.is_dir():
+                currentFolder.value = str(address)
+                selectFolder.unobserve(selecting, names='value')
+                selectFolder.options = self.getFolderContents(folder=address)[0]
+                selectFolder.observe(selecting, names='value')
+                selectFolder.value = None
+                selectFile.options = self.getFolderContents(folder=address)[1]
+
+        def newAddress(value):
+            goToAddress(currentFolder.value)
+        currentFolder = ipw.Text(value=str(self.cwd),
             layout=Layout(width='70%'),
-            style = {'description_width': '150px'},
-            disabled=False,
-        )
-        selectParameters.observe(selecting, names='value')
-
-        self.LoadPar(selectParameters.value)
-        fileList = self.dt.fileList()
-
-        self.Files = ipw.Dropdown(
-            options=self.dt.fileList(),
-            description='Select File',
-            layout=Layout(width='70%'),
-            style = {'description_width': '150px'},
-            disabled=False,
-        )
+            style = {'width': '100px','description_width': '150px'},
+            description='Current Folder')
+        currentFolder.on_submit(newAddress)
+                
+        def selecting(value) :
+            if value['new'] and value['new'] not in [self.FoldersLabel, self.FilesLabel] :
+                path = Path(currentFolder.value)
+                newpath = path / value['new']
+                if newpath.is_dir():
+                    goToAddress(newpath)
+                elif newpath.is_file():
+                    pass
         
-        def FitData_Clicked(b) :
+        selectFolder = ipw.Select(
+            options=self.getFolderContents(self.cwd)[0],
+            rows=5,
+            value=None,
+            layout=Layout(width='70%'),
+            style = {'width': '100px','description_width': '150px'},
+            description='Subfolders')
+        selectFolder.observe(selecting, names='value')
+        
+        selectFile = ipw.Select(
+            options=self.getFolderContents(self.cwd)[1],
+            rows=10,
+            values=None,
+            layout=Layout(width='70%'),
+            style = {'width': '100px','description_width': '150px'},
+            description='Files')
+
+        def parent(value):
+            new = Path(currentFolder.value).parent
+            goToAddress(new)
+        up_button = ipw.Button(description='Up',layout=Layout(width='10%'))
+        up_button.on_click(parent)
+
+        def load(b):
+            self.loadRuns(selectFile.value,currentFolder.value)
+            selectRun.options = self.runNames
+        load_button = ipw.Button(description='Load',layout=Layout(width='10%'))
+        load_button.on_click(load)
+
+        selectRun = ipw.Dropdown(
+            options=[''],
+            description='Select Run',
+            layout=Layout(width='70%'),
+            style = {'description_width': '150px'},
+            disabled=False,
+        )
+        selectRun.observe(selecting, names='value')
+
+        def showData_Clicked(b) :
             with out :
                 clear_output(True)
-                self.data = self.dt.LoadData(self.Files.value,normalize=True)
-                self.FitData()
-        FitData = ipw.Button(description="Fit Data")
-        FitData.on_click(FitData_Clicked)
+                par = self.runs[selectRun.value]
+                par['run'] = selectRun.value
+                par['folder'] = dataFolder.value
+                self.data = dt.loadData(par)
+                dt.plotData(self.data)
+        showData = ipw.Button(description="Show Data")
+        showData.on_click(showData_Clicked)
         
-        display(selectParameters)
-        display(self.Files)
-        # display(ipw.HBox([ShowData,FitData]))
-        display(FitData)
+        def fitData_Clicked(b) :
+            with out :
+                clear_output(True)
+                par = self.runs[selectRun.value]
+                par['run'] = selectRun.value
+                par['folder'] = dataFolder.value
+                self.data = dt.loadData(par)
+                self.fits = analysisTools(self.data, par)
+                self.fits.fitData()
+        fitData = ipw.Button(description="Fit Data")
+        fitData.on_click(fitData_Clicked)
+        
+        display(ipw.HBox([dataFolder]))
+        display(ipw.HBox([currentFolder]))
+        display(ipw.HBox([selectFolder,up_button]))
+        display(ipw.HBox([selectFile,load_button]))
+        display(ipw.HBox([selectRun]))
+        display(ipw.HBox([showData,fitData]))
+
         display(out)
+        display(anout)
+    
+    def getFolderContents(self,folder):
+
+        'Gets contents of folder, sorting by folder then files, hiding hidden things'
+        folder = Path(folder)
+        folders = [item.name for item in folder.iterdir() if item.is_dir() and not item.name.startswith('.')]
+        files = [item.name for item in folder.iterdir() if item.is_file() and not item.name.startswith('.')]
+        return sorted(folders), sorted(files)
+
+    def loadRuns(self,file,folder='') :
+        self.file = file
+        self.folder = folder
+        with open(str(folder)+'/'+file, 'r') as stream:
+            self.runs = yaml.safe_load(stream)
+        self.runNames = list()
+        for runName in self.runs :
+            self.runNames.append(runName)
